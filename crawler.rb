@@ -38,7 +38,7 @@ class Crawler
     end
  
     #for any content types we may have missed above, exit if content type is not html
-    return if page.instance_of?(Mechanize::File) || page.content_type.nil? || page.content_type.index('text/html') == nil
+    return if page.instance_of?(Mechanize::File) || page.instance_of?(Mechanize::XmlFile) || (page.content_type.index('text/html') == nil)
  
     #add to array
     @visited_pages << url
@@ -56,8 +56,9 @@ class Crawler
     begin
       return ignored = true if url.nil? ||
                        (url.include? 'http' and !url.include?("webficient.com")) ||
-                       url.include? 'https://secure.omg.com.au' ||
-                       url.include? '/static/secure_omg' ||
+                       url.include?("secure.omg.com.au") ||
+                       url.include?("static/secure_omg") ||
+                       url.include?("directory") ||
                        @bad_pages.include?(url) ||
                        PROTOCOLS_IGNORED.find{ |prt| url =~ /#{prt}:/ } != nil ||
                        EXTENSIONS_IGNORED.find{ |ext| url =~ /#{ext}$/ } != nil
