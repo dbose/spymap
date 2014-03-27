@@ -38,7 +38,7 @@ class Crawler
     end
  
     #for any content types we may have missed above, exit if content type is not html
-    return if page.instance_of?(Mechanize::File) || page.instance_of?(Mechanize::XmlFile) || (page.content_type.index('text/html') == nil)
+    return if page.instance_of?(Mechanize::File) || page.instance_of?(Mechanize::XmlFile) || page.instance_of?(Mechanize::Image) || (page.content_type.index('text/html') == nil)
  
     #add to array
     @visited_pages << url
