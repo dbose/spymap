@@ -95,4 +95,8 @@ class Crawler
  	
 end
 
-sitemap = Crawler.new(ARGV[0] || "http://www.lawyers.com.au")
+if ARGV.empty?
+  puts "Usage: ./crawler.rb http://www.foo.com"
+end  
+
+sitemap = Crawler.new(ARGV[0])
